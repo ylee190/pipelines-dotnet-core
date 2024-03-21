@@ -11,9 +11,32 @@ pool:
   vmImage: 'BESTLYMHOME'
   #vmImage: ubuntu-latest
 
+# steps:
+# - task: UseDotNet@2
+#   displayName: 'Install .NET Core SDK'
+#   inputs:
+#     packageType: 'sdk'
+#     version: '8.x'
+#     includePreviewVersions: true
+#     performMultiLevelLookup: true
+
+  
 variables:
   buildConfiguration: 'Release'
 
+# steps:
+# - script: dotnet build --configuration $(buildConfiguration)
+#   displayName: 'dotnet build $(buildConfiguration)'+
+
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    feedsToUse: 'select'
+    vstsFeed: 'my-vsts-feed'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    arguments: '--configuration $(buildConfiguration)'
   displayName: 'dotnet build $(buildConfiguration)'
