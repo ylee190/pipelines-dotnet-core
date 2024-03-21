@@ -6,6 +6,13 @@
 trigger:
 - master
 
+resources:
+  containers:
+  - container: test_container
+    image: buildpack-deps:focal
+  - container: nginx
+    image: nginx 
+
 pool:
   name: 'default'
   vmImage: 'BESTLYMHOME'
