@@ -30,7 +30,7 @@ pool:
   
 variables:
   buildConfiguration: 'Release'
-  YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn
+  YARN_CACHE_FOLDER: $(Pipeline.Workspace)/s/.yarn
 
 # steps:
 # - script: dotnet build --configuration $(buildConfiguration)
