@@ -50,20 +50,20 @@ steps:
   displayName: Docker restore
   condition: and(not(canceled()), eq(variables.CACHE_RESTORED, 'true'))
 
-- task: Docker@2
-  displayName: 'Build Docker'
-  inputs:
-    command: 'build'
-    repository: '$(repository)'
-    dockerfile: '$(dockerfilePath)'
-    tags: |
-      '$(tag)'
+# - task: Docker@2
+#   displayName: 'Build Docker'
+#   inputs:
+#     command: 'build'
+#     repository: '$(repository)'
+#     dockerfile: '$(dockerfilePath)'
+#     tags: |
+#       '$(tag)'
 
-- script: |
-    mkdir -p $(Pipeline.Workspace)/docker
-    docker save -o $(Pipeline.Workspace)/docker/cache.tar $(repository):$(tag)
-  displayName: Docker save
-  condition: and(not(canceled()), not(failed()), ne(variables.CACHE_RESTORED, 'true'))
+# - script: |
+#     mkdir -p $(Pipeline.Workspace)/docker
+#     docker save -o $(Pipeline.Workspace)/docker/cache.tar $(repository):$(tag)
+#   displayName: Docker save
+#   condition: and(not(canceled()), not(failed()), ne(variables.CACHE_RESTORED, 'true'))
 
 - checkout: self
   persistCredentials: true
