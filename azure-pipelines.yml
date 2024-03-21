@@ -30,12 +30,24 @@ pool:
   
 variables:
   buildConfiguration: 'Release'
+  YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn
 
 # steps:
 # - script: dotnet build --configuration $(buildConfiguration)
 #   displayName: 'dotnet build $(buildConfiguration)'+
 
 steps:
+- task: Cache@2
+  inputs:
+    key: '"Yarn" | "$(Agent.OS)" | yarn.lock'
+    path: '$(YARN_CACHE_FOLDER)'
+    restoreKeys: |
+      yarn | "$(Agent.OS)"
+      yarn
+  displayName: Cache Yarn packages
+
+- script: yarn --frozen-lockfile
+
 - checkout: self
   persistCredentials: true
 
